@@ -1,6 +1,8 @@
 import ollama
 
 
+model = 'phi3'
+
 def extract_message_from_stream(stream):
     # Process each chunk in the stream
     output = ""
@@ -16,7 +18,7 @@ def extract_message_from_stream(stream):
 
 def chat_ollama_single_stream(query):
     chat_messages_context = [{'role': 'user', 'content': query + "\n"}]
-    stream = ollama.chat(model='llama3', messages=chat_messages_context, stream=True)
+    stream = ollama.chat(model=model, messages=chat_messages_context, stream=True)
     # Process each chunk in the stream
     # output = ""
     # for chunk in stream:
@@ -42,7 +44,7 @@ def chat_ollama_context(msg, chat_messages_context):
         chat_messages_context1[0]['content'] += msg +"\n"
 
     # Start the chat stream
-    stream = ollama.chat(model='llama3', messages=chat_messages_context1, stream=True)
+    stream = ollama.chat(model=model, messages=chat_messages_context1, stream=True)
 
     # Process each chunk in the stream
     output = ""
