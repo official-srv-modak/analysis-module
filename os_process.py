@@ -1,7 +1,7 @@
 import ollama
 
 
-model = 'phi3'
+model = 'codegemma'
 
 def extract_message_from_stream(stream):
     # Process each chunk in the stream
@@ -9,6 +9,10 @@ def extract_message_from_stream(stream):
     for chunk in stream:
         # Extract the LLM's response
         llm_response = chunk['message']['content']
+        if (llm_response == '\n'):
+            print()
+        else:
+            print(llm_response, end='')
 
         # Store the LLM's response
         output += llm_response
