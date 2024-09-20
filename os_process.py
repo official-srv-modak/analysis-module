@@ -1,4 +1,5 @@
 import ollama
+import time
 
 
 model = 'phi3'
@@ -72,6 +73,7 @@ if __name__ == "__main__":
     for i in range(0, len(code_string), 100):  # Each chunk is 100 characters
         yield code_string[i:i + 100] + "\n"
         print(code_string[i:i + 100])
+        time.sleep(0.5)  # 100 milliseconds delay
 
     yield "Stream complete.\n"
 
