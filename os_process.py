@@ -20,6 +20,62 @@ def extract_message_from_stream(stream):
 
     return output
 
+
+def generate_sample_stream_data():
+    code_string = """
+    ```python
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        # Recursively sort both halves
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+
+        # Merge the sorted sub-arrays
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # Checking if any element was left
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+# Example usage:
+if __name__ == "__main__":
+    input_array = [54, 26, 93, 17, 77, 31, 44, 55]
+    print("Original array:", input_array)
+    merge_sort(input_array)
+    print("Sorted array:", input_array)
+    ```
+    """
+
+    yield "Starting stream...\n"
+
+    # Break the code string into chunks
+    for i in range(0, len(code_string), 100):  # Each chunk is 100 characters
+        yield code_string[i:i + 100] + "\n"
+        print(code_string[i:i + 100])
+
+    yield "Stream complete.\n"
+
+
 def chat_ollama_single_stream(query):
     chat_messages_context = [{'role': 'user', 'content': query + "\n"}]
     stream = ollama.chat(model=model, messages=chat_messages_context, stream=True)
