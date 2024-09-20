@@ -38,6 +38,20 @@ def chat_ollama_single_stream(query):
 
     return stream
 
+def chat_ollama_single_stream_1(query):
+    chat_messages_context = [{'role': 'user', 'content': query + "\n"}]
+    stream = ollama.chat(model=model, messages=chat_messages_context, stream=True)
+
+    # Modify the generator to return bytes instead of a string
+    for chunk in stream:
+        llm_response = chunk['message']['content']
+        if llm_response == '\n':
+            print()
+        else:
+            print(llm_response, end='')
+        # Ensure each chunk is converted to bytes
+        yield llm_response.encode('utf-8')  # Encode to bytes
+
 def chat_ollama_context(msg, chat_messages_context):
     # Initialize the chat session with an initial user message
     if not chat_messages_context:
