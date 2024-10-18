@@ -38,4 +38,4 @@ def chat_single_stream_sample():
     return Response(generate_sample_stream_data(), content_type='text/plain')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=9876, host="0.0.0.0")
