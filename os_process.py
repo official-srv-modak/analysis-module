@@ -2,7 +2,7 @@ import ollama
 import time
 
 
-model = 'phi3'
+model = 'llama3'
 
 def extract_message_from_stream(stream):
     # Process each chunk in the stream
